@@ -22,7 +22,7 @@ public class MyWebhookServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    response.setContentType("application/json");
+    resp.setContentType("application/json");
     PrintWriter out = resp.getWriter();
     JSONObject obj = new JSONObject();
     obj.put("displayText", "500 Rs.");
