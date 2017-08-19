@@ -26,6 +26,7 @@ public class MyWebhookServlet extends HttpServlet {
     PrintWriter out = resp.getWriter();
     JSONObject obj = new JSONObject();
     obj.put("displayText", "500 Rs.");
+    obj.put("speech", "500 Rs.");
     out.println(obj);
     
   }
