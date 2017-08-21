@@ -25,13 +25,13 @@ public class MyWebhookServlet extends HttpServlet {
 	resp.setContentType("application/json");
 	
 	StringBuilder buffer = new StringBuilder();
-    BufferedReader reader = request.getReader();
+    BufferedReader reader = req.getReader();
     String line;
     while ((line = reader.readLine()) != null) {
         buffer.append(line);
     }
     String data = buffer.toString();
-	JSONObject reqJSON = (JSONObject) new JSONParser().parse(data);;
+	JSONObject reqJSON = new JSONObject(data);
 	
     PrintWriter out = resp.getWriter();
     JSONObject obj = new JSONObject();
