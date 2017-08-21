@@ -34,7 +34,7 @@ public class MyWebhookServlet extends HttpServlet {
     String data = buffer.toString();
 	JSONParser parser = new JSONParser();
 	JSONObject reqJSON = (JSONObject)parser.parse(data);
-	JSONObject result = reqJSON.get("result");
+	JSONObject result = (JSONObject)reqJSON.get("result");
 	
     PrintWriter out = resp.getWriter();
     JSONObject obj = new JSONObject();
