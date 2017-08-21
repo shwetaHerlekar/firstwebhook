@@ -23,6 +23,8 @@ public class MyWebhookServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     
+	try
+	{
 	resp.setContentType("application/json");
 	
 	StringBuilder buffer = new StringBuilder();
@@ -41,6 +43,10 @@ public class MyWebhookServlet extends HttpServlet {
     obj.put("displayText", "500 Rs.");
     obj.put("speech", "500 Rs."+result.get("action"));
     out.println(obj);
+	
+	}
+	catch(Exception e){
+	}
     
   }
 
