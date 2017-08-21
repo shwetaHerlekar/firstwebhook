@@ -44,18 +44,21 @@ public class MyWebhookServlet extends HttpServlet {
 	String pizza = String.valueOf(parameters.get("pizza"));
 	int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
 	
-	
-	
-	
-	if(action1 == "calculate_bill"){
+
+	if(action1.equals("calculate_bill")){
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
-		obj.put("displayText", coke+cokecnt);
-		obj.put("speech", coke+cokecnt);
+		obj.put("displayText", bill);
+		obj.put("speech", bill);
 		out.println(obj);
 	}
 	
+	PrintWriter out = resp.getWriter();
+	JSONObject obj = new JSONObject();
+	obj.put("displayText", coke+cokecnt);
+	obj.put("speech", coke+cokecnt);
+	out.println(obj);
 	
 	}
 	catch(Exception e){
