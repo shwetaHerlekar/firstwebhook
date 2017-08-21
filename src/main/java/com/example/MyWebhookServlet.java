@@ -37,17 +37,56 @@ public class MyWebhookServlet extends HttpServlet {
 	JSONParser parser = new JSONParser();
 	JSONObject reqJSON = (JSONObject)parser.parse(data);
 	JSONObject result = (JSONObject)reqJSON.get("result");
+	String action1 = result.get("action");
 	
-    PrintWriter out = resp.getWriter();
-    JSONObject obj = new JSONObject();
-    obj.put("displayText", "500 Rs.");
-    obj.put("speech", "500 Rs."+result.get("action"));
-    out.println(obj);
+	if(action1 == "calculate_bill"){
+		JSONObject parameters = (JSONObject)reqJSON.get("parameters");
+		String coke = parameters.get("coke");
+		String cokecnt = parameters.get("cokecount");
+		String pizza = parameters.get("pizza");
+		String pizzacnt = parameters.get("pizzaCount");
+		
+		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
+		
+		PrintWriter out = resp.getWriter();
+		JSONObject obj = new JSONObject();
+		obj.put("displayText", "Your bill is"+String.valueOf(bill)+" Rupees. Thanks for visiting us!!");
+		obj.put("speech", "Your bill is"+String.valueOf(bill)+" Rupees. Thanks for visiting us!!");
+		out.println(obj);
+		
+	}
+	
 	
 	}
 	catch(Exception e){
 	}
     
+  }
+  
+  public int calculateBill(String pizza, int cnt1, String coke, int cnt2)
+  {
+	String pizzas = ["Austrelian", "Autumn", "cheese", "Peppy Panir"];
+	int cost1 = [200, 100, 300, 230];
+	
+	String cokes = ['Coca cola', 'Mirinda']
+	int cost2 = [30,50];
+
+	for(int i=0; i < pizzas.length; i++){
+		if(pizza.equalsIgnoreCase(pizzas[i]))
+		{
+			int price1 = cost1[i];
+		}
+	}
+	
+	for(int i=0; i < cokes.length; i++){
+		if(coke.equalsIgnoreCase(cokes[i]))
+		{
+			int price2 = cost2[i];
+		}
+	}
+	
+	return price1*cnt1+price2*cnt2;
+	
   }
 
 }
