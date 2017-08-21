@@ -38,18 +38,21 @@ public class MyWebhookServlet extends HttpServlet {
 	JSONObject reqJSON = (JSONObject)parser.parse(data);
 	JSONObject result = (JSONObject)reqJSON.get("result");
 	String action1 = String.valueOf(result.get("action"));
+	JSONObject parameters = (JSONObject)reqJSON.get("parameters");
+	String coke = String.valueOf(parameters.get("coke"));
+	int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
+	String pizza = String.valueOf(parameters.get("pizza"));
+	int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
+	
+	
 	PrintWriter out = resp.getWriter();
 	JSONObject obj = new JSONObject();
-	obj.put("displayText", action1);
-	obj.put("speech", action1);
+	obj.put("displayText", coke+cokecnt);
+	obj.put("speech", coke+cokecnt);
 	out.println(obj);
 	
 	/*if(action1 == "calculate_bill"){
-		JSONObject parameters = (JSONObject)reqJSON.get("parameters");
-		String coke = String.valueOf(parameters.get("coke"));
-		int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
-		String pizza = String.valueOf(parameters.get("pizza"));
-		int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
+		
 		
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
 		
