@@ -37,11 +37,11 @@ public class MyWebhookServlet extends HttpServlet {
 	JSONParser parser = new JSONParser();
 	JSONObject reqJSON = (JSONObject)parser.parse(data);
 	JSONObject result = (JSONObject)reqJSON.get("result");
-	String action1 = result.get("action");
+	String action1 = String.valueOf(result.get("action"));
 	
 	if(action1 == "calculate_bill"){
 		JSONObject parameters = (JSONObject)reqJSON.get("parameters");
-		String coke = parameters.get("coke");
+		String coke = String.valueOf(parameters.get("coke"));
 		int cokecnt = Integer.parseInt(parameters.get("cokecount"));
 		String pizza = parameters.get("pizza");
 		int pizzacnt = Integer.parseInt(parameters.get("pizzaCount"));
