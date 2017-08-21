@@ -39,21 +39,34 @@ public class MyWebhookServlet extends HttpServlet {
 	JSONObject result = (JSONObject)reqJSON.get("result");
 	String action1 = String.valueOf(result.get("action"));
 	JSONObject parameters = (JSONObject)result.get("parameters");
-	String coke = String.valueOf(parameters.get("coke"));
-	int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
-	String pizza = String.valueOf(parameters.get("pizza"));
-	int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
+	
 	
 
 	if(action1.equals("calculate_bill")){
+		String coke = String.valueOf(parameters.get("coke"));
+		int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
+		String pizza = String.valueOf(parameters.get("pizza"));
+		int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
+	
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
+		PrintWriter out = resp.getWriter();
+		JSONObject obj = new JSONObject();
+		obj.put("displayText", "Your bill is "+String.valueOf(bill)+"Rupees");
+		obj.put("speech", "Your bill is "+String.valueOf(bill)+"Rupees");
+		out.println(obj);
+	}
+	/*else if(action1.equals("calculate_pizza_bill")){
+		
+		String pizza = String.valueOf(parameters.get("pizza"));
+		int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
+	
+		int bill = calculatePizzaBill(pizza,pizzacnt);
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
 		obj.put("displayText", String.valueOf(bill));
 		obj.put("speech", String.valueOf(bill));
 		out.println(obj);
-	}
-	
+	}*/
 	
 	
 	}
@@ -86,6 +99,24 @@ public class MyWebhookServlet extends HttpServlet {
 	}
 	
 	return price1*cnt1+price2*cnt2;
+	
+  }
+  
+  public int calculatePizzaBill(String pizza, int cnt1)
+  {
+	String[] pizzas = {"Austrelian", "Autumn", "cheese", "Peppy Panir"};
+	int[] cost1 = {200, 100, 300, 230};
+	
+	
+	int price1=0;
+	for(int i=0; i < pizzas.length; i++){
+		if(pizza.equalsIgnoreCase(pizzas[i]))
+		{
+			price1 = cost1[i];
+		}
+	}
+	
+	return price1*cnt1;
 	
   }
 
