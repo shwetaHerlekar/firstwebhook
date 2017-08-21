@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
-import org.json.simple.JSONParser;
+import org.json.simple.parser.JSONParser;
 
 // [START example]
 @SuppressWarnings("serial")
