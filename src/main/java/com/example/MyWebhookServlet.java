@@ -51,11 +51,11 @@ public class MyWebhookServlet extends HttpServlet {
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
-		obj.put("displayText", "Your bill is "+String.valueOf(bill)+"Rupees");
-		obj.put("speech", "Your bill is "+String.valueOf(bill)+"Rupees");
+		obj.put("displayText", "Your bill is "+String.valueOf(bill)+"Rupees. Thanks for visiting us.");
+		obj.put("speech", "Your bill is "+String.valueOf(bill)+"Rupees. Thanks for visiting us.");
 		out.println(obj);
 	}
-	/*else if(action1.equals("calculate_pizza_bill")){
+	else if(action1.equals("calculate_pizza_bill")){
 		
 		String pizza = String.valueOf(parameters.get("pizza"));
 		int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
@@ -63,10 +63,10 @@ public class MyWebhookServlet extends HttpServlet {
 		int bill = calculatePizzaBill(pizza,pizzacnt);
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
-		obj.put("displayText", String.valueOf(bill));
-		obj.put("speech", String.valueOf(bill));
+		obj.put("displayText", "Your bill is "+String.valueOf(bill)+"Rupees. Thanks for visiting us.");
+		obj.put("speech", "Your bill is "+String.valueOf(bill)+"Rupees. Thanks for visiting us.");
 		out.println(obj);
-	}*/
+	}
 	
 	
 	}
