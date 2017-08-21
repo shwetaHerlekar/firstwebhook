@@ -51,8 +51,8 @@ public class MyWebhookServlet extends HttpServlet {
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
-		obj.put("displayText", bill);
-		obj.put("speech", bill);
+		obj.put("displayText", coke+cokecnt);
+		obj.put("speech", coke+cokecnt);
 		out.println(obj);
 	}
 	
