@@ -30,7 +30,7 @@ public class MyWebhookServlet extends HttpServlet {
     while ((line = reader.readLine()) != null) {
         buffer.append(line);
     }
-    String data = buffer.toString()
+    String data = buffer.toString();
 	JSONObject reqJSON = (JSONObject) data;
 	
     PrintWriter out = resp.getWriter();
