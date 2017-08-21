@@ -1,7 +1,6 @@
 package com.example;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +21,22 @@ public class MyWebhookServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    resp.setContentType("application/json");
+    
+	resp.setContentType("application/json");
+	
+	StringBuilder buffer = new StringBuilder();
+    BufferedReader reader = request.getReader();
+    String line;
+    while ((line = reader.readLine()) != null) {
+        buffer.append(line);
+    }
+    String data = buffer.toString()
+	JSONObject reqJSON = (JSONObject) data;
+	
     PrintWriter out = resp.getWriter();
     JSONObject obj = new JSONObject();
     obj.put("displayText", "500 Rs.");
-    obj.put("speech", "500 Rs."+String.valueOf(req.result.action));
+    obj.put("speech", "500 Rs."+String.valueOf(reqJSON.result.action));
     out.println(obj);
     
   }
