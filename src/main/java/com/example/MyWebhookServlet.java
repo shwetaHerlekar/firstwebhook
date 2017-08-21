@@ -66,22 +66,23 @@ public class MyWebhookServlet extends HttpServlet {
   public int calculateBill(String pizza, int cnt1, String coke, int cnt2)
   {
 	String[] pizzas = {"Austrelian", "Autumn", "cheese", "Peppy Panir"};
-	int cost1 = {200, 100, 300, 230};
+	int[] cost1 = {200, 100, 300, 230};
 	
 	String[] cokes = {"Coca cola", "Mirinda"};
-	int cost2 = {30,50};
+	int[] cost2 = {30,50};
 
+	int price1=0,price2=0;
 	for(int i=0; i < pizzas.length; i++){
 		if(pizza.equalsIgnoreCase(pizzas[i]))
 		{
-			int price1 = cost1[i];
+			price1 = cost1[i];
 		}
 	}
 	
 	for(int i=0; i < cokes.length; i++){
 		if(coke.equalsIgnoreCase(cokes[i]))
 		{
-			int price2 = cost2[i];
+			price2 = cost2[i];
 		}
 	}
 	
