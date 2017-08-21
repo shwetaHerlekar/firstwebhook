@@ -38,8 +38,13 @@ public class MyWebhookServlet extends HttpServlet {
 	JSONObject reqJSON = (JSONObject)parser.parse(data);
 	JSONObject result = (JSONObject)reqJSON.get("result");
 	String action1 = String.valueOf(result.get("action"));
+	PrintWriter out = resp.getWriter();
+	JSONObject obj = new JSONObject();
+	obj.put("displayText", action1);
+	obj.put("speech", action1);
+	out.println(obj);
 	
-	if(action1 == "calculate_bill"){
+	/*if(action1 == "calculate_bill"){
 		JSONObject parameters = (JSONObject)reqJSON.get("parameters");
 		String coke = String.valueOf(parameters.get("coke"));
 		int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
@@ -48,13 +53,7 @@ public class MyWebhookServlet extends HttpServlet {
 		
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
 		
-		PrintWriter out = resp.getWriter();
-		JSONObject obj = new JSONObject();
-		obj.put("displayText", "Your bill is"+String.valueOf(bill)+" Rupees. Thanks for visiting us!!");
-		obj.put("speech", "Your bill is"+String.valueOf(bill)+" Rupees. Thanks for visiting us!!");
-		out.println(obj);
-		
-	}
+	}*/
 	
 	
 	}
