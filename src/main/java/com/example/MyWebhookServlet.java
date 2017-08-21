@@ -42,9 +42,9 @@ public class MyWebhookServlet extends HttpServlet {
 	if(action1 == "calculate_bill"){
 		JSONObject parameters = (JSONObject)reqJSON.get("parameters");
 		String coke = String.valueOf(parameters.get("coke"));
-		int cokecnt = Integer.parseInt(parameters.get("cokecount"));
-		String pizza = parameters.get("pizza");
-		int pizzacnt = Integer.parseInt(parameters.get("pizzaCount"));
+		int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
+		String pizza = String.valueOf(parameters.get("pizza"));
+		int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
 		
 		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);
 		
