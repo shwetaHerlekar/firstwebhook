@@ -68,7 +68,7 @@ public class MyWebhookServlet extends HttpServlet {
 	String[] pizzas = {"Austrelian", "Autumn", "cheese", "Peppy Panir"};
 	int cost1 = {200, 100, 300, 230};
 	
-	String[] cokes = {'Coca cola', 'Mirinda'}
+	String[] cokes = {'Coca cola', 'Mirinda'};
 	int cost2 = {30,50};
 
 	for(int i=0; i < pizzas.length; i++){
