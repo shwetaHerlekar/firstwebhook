@@ -24,17 +24,23 @@ public class MyServiceServlet extends HttpServlet {
 	private AIDataService aiDataService;
 	
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, AIServiceException {
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
+	try{
+	
 	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
 	aiDataService = new AIDataService(aiConfig);
 	
 	AIResponse aiResponse = request(req.getParameter("query"), req.getSession());
 	resp.setContentType("text/plain");
     resp.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
+	}
 	
+	catch(Exception e){
+	
+	}
   }
   
   public AIResponse request(AIRequest aiRequest, HttpSession session)
