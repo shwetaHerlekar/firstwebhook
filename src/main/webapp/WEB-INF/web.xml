@@ -11,4 +11,18 @@
     <servlet-name>query</servlet-name>
     <url-pattern>/actions</url-pattern>
   </servlet-mapping>
+  
+ <servlet>
+    <servlet-name>query1</servlet-name>
+    <servlet-class>com.example.MyServiceServlet</servlet-class>
+	<init-param>
+		<param-name>PARAM_API_AI_KEY</param-name>
+		<param-value>36e0d78753284c17ada1711f2dc6fc25</param-value>
+	</init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>query1</servlet-name>
+    <url-pattern>/ai</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
