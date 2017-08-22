@@ -28,7 +28,7 @@ public class MyServiceServlet extends HttpServlet {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
-	string sessionId = '123456abcd';
+	string sessionId = "123456abcd";
 	try{
 	
 	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
@@ -58,6 +58,11 @@ public class MyServiceServlet extends HttpServlet {
   public AIResponse request(AIRequest aiRequest, AIServiceContext serviceContext)
       throws AIServiceException {
     return aiDataService.request(aiRequest, serviceContext);
+	}
+	
+	public AIResponse request(String query, String sessionId) throws AIServiceException {
+    return request(new AIRequest(query),
+        (sessionId != null) ? AIServiceContextBuilder.buildFromSessionId(sessionId) : null);
 	}
   
 }
