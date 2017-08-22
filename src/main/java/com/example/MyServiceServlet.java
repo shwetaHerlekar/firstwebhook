@@ -21,13 +21,15 @@ import ai.api.model.AIResponse;
 @SuppressWarnings("serial")
 public class MyServiceServlet extends HttpServlet {
 
+	private AIDataService aiDataService
+
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
 	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
-	AIDataService aiDataService = new AIDataService(aiConfig);
+	aiDataService = new AIDataService(aiConfig);
 	
 	AIResponse aiResponse = request(req.getParameter("query"), req.getSession());
 	resp.setContentType("text/plain");
@@ -35,9 +37,20 @@ public class MyServiceServlet extends HttpServlet {
 	
   }
   
+  public AIResponse request(AIRequest aiRequest, HttpSession session)
+      throws AIServiceException {
+    return request(aiRequest,
+        (session != null) ? AIServiceContextBuilder.buildFromSessionId(session.getId()) : null);
+	}
+  
   public AIResponse request(String query, HttpSession session) throws AIServiceException {
     return request(new AIRequest(query),
         (session != null) ? AIServiceContextBuilder.buildFromSessionId(session.getId()) : null);
+	}
+  
+  public AIResponse request(AIRequest aiRequest, AIServiceContext serviceContext)
+      throws AIServiceException {
+    return aiDataService.request(aiRequest, serviceContext);
 	}
   
 }
