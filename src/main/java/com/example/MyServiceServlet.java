@@ -20,10 +20,7 @@ public class MyServiceServlet extends AIServiceServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    /*PrintWriter out = resp.getWriter();
-    out.println("Hello Servlet!!");*/
     
-	//ServletConfig conf=getServletConfig();
 	
 	String sessionId = req.getParameter("sessionId");
 	try{
@@ -33,30 +30,8 @@ public class MyServiceServlet extends AIServiceServlet {
 		resp.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
 	}
 	
-	catch(Exception e){
+	catch(AIServiceException e){
 	
 	}
   }
-  
-  /*public AIResponse request(AIRequest aiRequest, HttpSession session)
-      throws AIServiceException {
-    return request(aiRequest,
-        (session != null) ? AIServiceContextBuilder.buildFromSessionId(session.getId()) : null);
-	}
-  
-  public AIResponse request(String query, HttpSession session) throws AIServiceException {
-    return request(new AIRequest(query),
-        (session != null) ? AIServiceContextBuilder.buildFromSessionId(session.getId()) : null);
-	}
-  
-  public AIResponse request(AIRequest aiRequest, AIServiceContext serviceContext)
-      throws AIServiceException {
-    return aiDataService.request(aiRequest, serviceContext);
-	}
-	
-	public AIResponse request(String query, String sessionId) throws AIServiceException {
-    return request(new AIRequest(query),
-        (sessionId != null) ? AIServiceContextBuilder.buildFromSessionId(sessionId) : null);
-	}*/
-  
 }
