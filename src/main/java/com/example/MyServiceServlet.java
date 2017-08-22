@@ -28,12 +28,13 @@ public class MyServiceServlet extends HttpServlet {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
+	string sessionId = '123456abcd';
 	try{
 	
 	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
 	aiDataService = new AIDataService(aiConfig);
 	
-	AIResponse aiResponse = request(req.getParameter("query"), req.getSession());
+	AIResponse aiResponse = request(req.getParameter("query"), sessionId);
 	resp.setContentType("text/plain");
     resp.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
 	}
