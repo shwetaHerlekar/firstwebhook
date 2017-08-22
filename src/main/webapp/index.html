@@ -1,10 +1,9 @@
 <html>
 
 <head></head>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"/>
 <script>
-
-alert("Hii Shweta!!");
+var sessionId = "ab"+parseInt(Math.random() * 10000000);
+//alert(sessionId);
 
 function userText()
 {
@@ -23,13 +22,13 @@ function userText()
 	
 	div.appendChild(p);
 	
-	askChatbot();
+	//askChatbot();
 }
 
 function askChatbot()
 {
 	var http = new XMLHttpRequest();
-	var url="ai?query="+text;
+	var url="ai?query="+text+"&sessionId="+sessionId;
 	http.open("GET", url, true);
 
 		//Send the proper header information along with the request
