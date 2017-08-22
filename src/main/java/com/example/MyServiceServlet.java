@@ -24,7 +24,7 @@ public class MyServiceServlet extends HttpServlet {
 	private AIDataService aiDataService;
 	
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, AIServiceException {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
