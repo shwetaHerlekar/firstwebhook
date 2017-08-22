@@ -2,6 +2,7 @@ package com.example;
 
 import java.io.*;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,16 +23,19 @@ import ai.api.model.AIResponse;
 public class MyServiceServlet extends HttpServlet {
 
 	private AIDataService aiDataService;
+	public String PARAM_API_AI_KEY = "apiaiKey";
 	
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
+	ServletConfig conf=getServletConfig();
+	
 	String sessionId = req.getParameter("sessionId");
 	try{
 	
-	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
+	AIConfiguration aiConfig = new AIConfiguration(conf.getInitParameter(PARAM_API_AI_KEY));
 	aiDataService = new AIDataService(aiConfig);
 	
 	AIResponse aiResponse = request(req.getParameter("query"), sessionId);
