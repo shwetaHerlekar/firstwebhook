@@ -21,7 +21,7 @@ public class MyServiceServlet extends AIServiceServlet {
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws IOException {
     try {
       AIResponse aiResponse = request(request.getParameter("query"), request.getSession());
       response.setContentType("text/plain");
