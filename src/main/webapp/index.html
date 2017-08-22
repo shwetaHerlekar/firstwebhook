@@ -1,7 +1,49 @@
 <html>
+
 <head></head>
+
+<script>	   
+function userText()
+{
+
+	var tinput = document.getElementById("uinput");
+	text = tinput.value;
+	tinput.value = "";
+	
+	alert(text);
+	var div = document.getElementById("box");
+	var p = document.createElement('p');
+	p.innerHTML = text;
+	
+	var br = document.createElement('br');
+	p.appendChild(br);
+	
+	div.appendChild(p);
+	
+	askChatbot();
+}
+
+function askChatbot()
+{
+	var http = new XMLHttpRequest();
+	var url="ai?query="+text;
+	http.open("GET", url, true);
+
+		//Send the proper header information along with the request
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				alert(http.responseText);
+			}
+		}
+		
+	   http.send();
+}
+</script>
+
 <body>
-<a href="/actions">query servlet</a>
-<h3>Hello Shweta!!</h3>
+ <div id="box" style="width:400px;border:2px solid;height:500px;"></div>
+<input type="text" id="uinput" style="width:400px;"/>
+<input type="button" value="submit" onclick="userText()"/>
 </body>
+
 </html>
