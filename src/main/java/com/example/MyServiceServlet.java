@@ -23,8 +23,21 @@ public class MyServiceServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    PrintWriter out = resp.getWriter();
-    out.println("Hello Servlet!!");
+    /*PrintWriter out = resp.getWriter();
+    out.println("Hello Servlet!!");*/
     
+	AIConfiguration aiConfig = new AIConfiguration(config.getInitParameter(PARAM_API_AI_KEY));
+	AIDataService aiDataService = new AIDataService(aiConfig);
+	
+	AIResponse aiResponse = request(request.getParameter("query"), request.getSession());
+	response.setContentType("text/plain");
+    response.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
+	
   }
+  
+  public AIResponse request(String query, HttpSession session) throws AIServiceException {
+    return request(new AIRequest(query),
+        (session != null) ? AIServiceContextBuilder.buildFromSessionId(session.getId()) : null);
+	}
+  
 }
