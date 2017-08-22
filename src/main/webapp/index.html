@@ -12,7 +12,7 @@ function userText()
 	text = tinput.value;
 	tinput.value = "";
 	
-	alert(text);
+	//alert(text);
 	var div = document.getElementById("box");
 	var p = document.createElement('p');
 	p.innerHTML = text;
@@ -22,7 +22,7 @@ function userText()
 	
 	div.appendChild(p);
 	
-	//askChatbot();
+	askChatbot();
 }
 
 function askChatbot()
