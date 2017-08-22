@@ -28,7 +28,7 @@ public class MyServiceServlet extends HttpServlet {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
-	String sessionId = "123456abcd";
+	String sessionId = req.getParameter("sessionId");
 	try{
 	
 	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
