@@ -26,12 +26,12 @@ public class MyServiceServlet extends HttpServlet {
     /*PrintWriter out = resp.getWriter();
     out.println("Hello Servlet!!");*/
     
-	AIConfiguration aiConfig = new AIConfiguration(config.getInitParameter(PARAM_API_AI_KEY));
+	AIConfiguration aiConfig = new AIConfiguration("c17ce92704f14b0f85181127e2f0e6b6");
 	AIDataService aiDataService = new AIDataService(aiConfig);
 	
-	AIResponse aiResponse = request(request.getParameter("query"), request.getSession());
-	response.setContentType("text/plain");
-    response.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
+	AIResponse aiResponse = request(req.getParameter("query"), req.getSession());
+	resp.setContentType("text/plain");
+    resp.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
 	
   }
   
