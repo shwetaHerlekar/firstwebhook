@@ -28,9 +28,9 @@ public class MyServiceServlet extends AIServiceServlet {
 	String sessionId = req.getParameter("sessionId");
 	try{
 	
-		AIResponse aiResponse = request(request.getParameter("query"), sessionId);
-		response.setContentType("text/plain");
-		response.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
+		AIResponse aiResponse = request(req.getParameter("query"), sessionId);
+		resp.setContentType("text/plain");
+		resp.getWriter().append(aiResponse.getResult().getFulfillment().getSpeech());
 	}
 	
 	catch(Exception e){
