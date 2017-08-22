@@ -21,8 +21,8 @@ import ai.api.model.AIResponse;
 @SuppressWarnings("serial")
 public class MyServiceServlet extends HttpServlet {
 
-	private AIDataService aiDataService
-
+	private AIDataService aiDataService;
+	
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     /*PrintWriter out = resp.getWriter();
