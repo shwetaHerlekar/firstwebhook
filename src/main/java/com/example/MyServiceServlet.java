@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import ai.api.AIServiceException;
 import ai.api.model.AIResponse;
 import ai.api.web.AIServiceServlet;
-
+import java.util.logging.Logger;
 
 
 // [START example]
