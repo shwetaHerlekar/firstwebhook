@@ -32,10 +32,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 					log.info("in query leave case");
 					output = queryLeave(output, parameter);
 					break;
-				/*case "simple_leave" :
+				case "simple_leave" :
 					log.info("in simple leave case");
 					output = simpleLeave(output, parameter);
-					break;*/
+					break;
 			}
 		}catch(Exception e){
 			
@@ -109,5 +109,14 @@ public class MyWebhookServlet extends AIWebhookServlet {
 
 		log.info("days :"+days);
 		return days;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Fulfillment simpleLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
+		log.info("in simple leave function");
+		String message = "This is simple leave intent triggered to confirm leaves";
+		output.setDisplayText(message);
+		output.setSpeech(message);
+		return output;
 	}
 }
