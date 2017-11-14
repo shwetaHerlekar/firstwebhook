@@ -22,6 +22,13 @@
     <artifactId>libai-web-servlet</artifactId>
     <version>1.6.12</version>
 	</dependency>
+	<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.7</version>
+    <scope>test</scope>
+	</dependency>
+
   </dependencies>
   <build>
     <!-- for hot reload of the web application -->
