@@ -89,18 +89,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		}
 		if (parameter.containsKey("noOfDays") && !parameter.get("noOfDays").equals("")) {
 			log.info("no of days");
-			outParameter.put("noOfDays", parameter.get("noOfDays").toString());
-			AIEvent followupEvent = new AIEvent("simple_leave_event");
-			followupEvent.setData(outParameter);
-			log.info("rerouting to event : evt trg");
-			output.setFollowupEvent(followupEvent);
+			
 		}
 		if (parameter.containsKey("event") && !parameter.get("event").equals("")) {
-			outParameter.put("event", parameter.get("event").toString());
-			AIEvent followupEvent = new AIEvent("simple_leave_event");
-			followupEvent.setData(outParameter);
-			log.info("rerouting to event : evt trg");
-			output.setFollowupEvent(followupEvent);
+			log.info("event");
 		}
 		
 		return output;
