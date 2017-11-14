@@ -114,7 +114,20 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	@SuppressWarnings("unchecked")
 	private Fulfillment simpleLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		log.info("in simple leave function");
-		String message = "This is simple leave intent triggered to confirm leaves";
+		String message = "";
+		
+		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
+			
+			if (!parameter.get("endDate").getAsString().equals("") && !parameter.get("startDate").getAsString().equals("")) {
+				message = "You are applying leave from "+parameter.get("startDate").getAsString()+" to "+parameter.get("endDate").getAsString()+". Please Confirm.";
+				log.info(message);
+			}
+			else if (!parameter.get("startDate").getAsString().equals("") && !parameter.get("noOfDays").getAsString().equals("")){
+				message = "You are applying "+parameter.get("noOfDays").getAsString()+" from "+parameter.get("startDate").getAsString()+". Please confirm.";
+				log.info(message);
+			}
+		}
+		
 		output.setDisplayText(message);
 		output.setSpeech(message);
 		return output;
