@@ -82,6 +82,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				AIOutputContext contextOut = new AIOutputContext();
 				contextOut.setLifespan(2);
 				contextOut.setName("SimpleLeave");
+				contextOut.setParameters(outParameters);
 				output.setContextOut(contextOut);
 				output.setDisplayText(message);
 				output.setSpeech(message);
