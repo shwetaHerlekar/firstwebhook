@@ -95,7 +95,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		return output;
 	}
 	
-	private int getDays(String startDate , String endDate) {
+	private int getDays(String startDate , String endDate) throws ParseException{
 		
 		// TODO Auto-generated method stub
 		Date start = new SimpleDateFormat("yyyy-mm-dd").parse(startDate);  
