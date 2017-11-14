@@ -101,7 +101,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		Date start = new SimpleDateFormat("yyyy-mm-dd").parse(startDate);  
 		Date end = new SimpleDateFormat("yyyy-mm-dd").parse(endDate);
 		
-		int days = Math.round((end.getTime() - start.getTime()) / (double) 86400000);
+		int days = (int)Math.round((end.getTime() - start.getTime()) / (double) 86400000);
 
 		log.info("days :"+days);
 		return days;
