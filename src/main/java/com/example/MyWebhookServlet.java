@@ -53,11 +53,10 @@ public class MyWebhookServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
 		
-		JSONObject response = getHolidays();
-		Date bday = (Date) response.get("birthday");
 		
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+bday);
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+bday);
+		
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??");
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??");
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
