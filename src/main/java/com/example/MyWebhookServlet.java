@@ -55,11 +55,10 @@ public class MyWebhookServlet extends HttpServlet {
 		
 		JSONObject response = getHolidays();
 		Calendar bday = (Calendar) response.get("birthday");
-		boolean val = isEventWithinRange(bday);
 		
-		log.info("val :"+val);
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+val);
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+val);
+		log.info("val :"+isEventWithinRange(bday));
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??");
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??");
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
@@ -111,7 +110,7 @@ public class MyWebhookServlet extends HttpServlet {
 	  
   }
   
-  public static boolean isEventWithinRange(Calendar testDate) {
+  public boolean isEventWithinRange(Calendar testDate) {
 		Calendar today = Calendar.getInstance();
 		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
 		
