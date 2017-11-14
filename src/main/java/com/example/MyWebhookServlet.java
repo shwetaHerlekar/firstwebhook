@@ -45,16 +45,16 @@ public class MyWebhookServlet extends HttpServlet {
 	
 
 	if(action1.equals("QUERY_LEAVE")){
-		/*String coke = String.valueOf(parameters.get("coke"));
-		int cokecnt = Integer.parseInt(String.valueOf(parameters.get("cokecount")));
-		String pizza = String.valueOf(parameters.get("pizza"));
-		int pizzacnt = Integer.parseInt(String.valueOf(parameters.get("pizzaCount")));
 	
-		int bill = calculateBill(pizza,pizzacnt,coke,cokecnt);*/
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??");
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??");
+		
+		JSONObject response = getHolidays();
+		Calendar bday = (Calendar) response.get("birthday");
+		boolean val = isEventWithinRange(bday);
+		
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+val);
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+val);
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
