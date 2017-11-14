@@ -47,6 +47,9 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		int days = 0;
 		Map<String,String> outParameter = new HashMap<>();
 		
+		String start = parameter.get("startDate").toString();
+		log.info(start=="");
+		
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			if (!parameter.get("startDate").getAsString().equals("")) {
 				log.info("start date");
