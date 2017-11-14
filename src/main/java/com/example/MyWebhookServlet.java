@@ -48,15 +48,15 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		Map<String,String> outParameter = new HashMap<>();
 		
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
-			if (!parameter.get("startDate").equals("")) {
+			if (!parameter.get("startDate").toString().equals("")) {
 				log.info("start date");
 				outParameter.put("startDate", parameter.get("startDate").toString());
 			}
-			if (!parameter.get("endDate").equals("")) {
+			if (!parameter.get("endDate").toString().equals("")) {
 				log.info("endDate");
 				outParameter.put("endDate", parameter.get("endDate").toString());
 			}
-			if (!parameter.get("endDate").equals("") && !parameter.get("startDate").equals("")) {
+			if (!parameter.get("endDate").toString().equals("") && !parameter.get("startDate").toString().equals("")) {
 				days =  getDays(parameter.get("startDate").toString(), parameter.get("endDate").toString());
 				outParameter.put("noOfDays", String.valueOf(days));
 				AIEvent followupEvent = new AIEvent("simple_leave_event");
