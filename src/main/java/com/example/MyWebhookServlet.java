@@ -52,8 +52,8 @@ public class MyWebhookServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
 		
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??");
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??");
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+getHolidays().toJSONString());
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+getHolidays().toJSONString());
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
@@ -77,7 +77,7 @@ public class MyWebhookServlet extends HttpServlet {
     
   }
   
-  @SuppressWarnings({ "unchecked", "unchecked", "unchecked", "unchecked", "unchecked" })
+  @SuppressWarnings({ "unchecked", "unchecked", "unchecked", "unchecked", "unchecked"})
 public JSONObject getHolidays(){
 	  
 	  int leaveBalance = 4;
