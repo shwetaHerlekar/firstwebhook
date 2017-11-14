@@ -115,6 +115,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	private Fulfillment simpleLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		log.info("in simple leave function");
 		String message = "";
+		log.info("parameter :"+parameters);
 		
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			
