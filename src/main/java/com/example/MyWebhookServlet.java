@@ -87,6 +87,19 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				output.setDisplayText(message);
 				output.setSpeech(message);
 			}
+			else if (parameter.get("endDate").getAsString().equals("") && !parameter.get("startDate").getAsString().equals(""))
+			{
+				log.info("only start date is given");
+			}
+			else if ( !parameter.get("endDate").getAsString().equals("") && parameter.get("startDate").getAsString().equals(""))
+			{
+				log.info("only end date is given");
+			}
+			else if (parameter.get("endDate").getAsString().equals("") && parameter.get("startDate").getAsString().equals(""))
+			{
+				log.info("no date is given");
+			}
+			
 		}
 		if (parameter.containsKey("noOfDays") && !parameter.get("noOfDays").equals("")) {
 			log.info("no of days");
@@ -115,7 +128,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	private Fulfillment simpleLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		log.info("in simple leave function");
 		String message = "";
-		log.info("parameter :"+parameters);
+		
 		
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			
