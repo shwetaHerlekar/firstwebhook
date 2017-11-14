@@ -51,27 +51,38 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		int balance = holidayData.get("leave_balance");
 		log.info("bal :"+balance);
 		int days = 0;
-		Map<String,String> outParameter = new HashMap<>();
+		HashMap<String, JsonElement> outParameters = new HashMap<String, JsonElement>();
 		
 		
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			if (!parameter.get("startDate").getAsString().equals("")) {
 				log.info("start date");
-				outParameter.put("startDate", parameter.get("startDate").toString());
+				JsonElement startDate = new JsonPrimitive(parameter.get("startDate").getAsString());
+				outParameters.put("startDate", startDate);
 			}
 			if (!parameter.get("endDate").getAsString().equals("")) {
 				log.info("endDate");
-				outParameter.put("endDate", parameter.get("endDate").toString());
+				JsonElement endDate = new JsonPrimitive(parameter.get("endDate").getAsString());
+				outParameters.put("endDate", endDate);
 			}
 			if (!parameter.get("endDate").getAsString().equals("") && !parameter.get("startDate").getAsString().equals("")) {
 				days =  getDays(parameter.get("startDate").getAsString(), parameter.get("endDate").getAsString());
-				outParameter.put("noOfDays", String.valueOf(days));
-				AIEvent followupEvent = new AIEvent("simple_leave_event");
-				followupEvent.setData(outParameter);
-				log.info("rerouting to event : evt trg");
-				output.setFollowupEvent(followupEvent);
-				message = "You want to apply leave from "+parameter.get("startDate").toString()+" to "+parameter.get("endDate").toString();
-				log.info("mesg :"+message);
+				JsonElement noOfDays = new JsonPrimitive(days);
+				outParameters.put("noOfDays", noOfDays);
+				if(days<=balance)
+				{
+					message = "You have sufficient leave_balance("+balance+"). You can apply leave.";
+					log.info("msg :"+message);
+				}
+				else
+				{
+					message = "You have only "+balance+" leaves remaining.You will need DP approval to apply these leaves.";
+					log.info("msg :"+message);
+				}
+				AIOutputContext contextOut = new AIOutputContext();
+				contextOut.setLifespan(2);
+				contextOut.setName("SimpleLeave");
+				output.setContextOut(contextOut);
 				output.setDisplayText(message);
 				output.setSpeech(message);
 			}
