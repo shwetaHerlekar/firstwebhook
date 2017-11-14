@@ -31,7 +31,7 @@ public class MyWebhookServlet extends HttpServlet {
 	try
 	{
 	resp.setContentType("application/json");
-	log.info("in webhook");
+	
 	StringBuilder buffer = new StringBuilder();
     BufferedReader reader = req.getReader();
     String line;
@@ -49,16 +49,16 @@ public class MyWebhookServlet extends HttpServlet {
 
 	if(action1.equals("QUERY_LEAVE")){
 	
-		log.info("in query leave");
+	
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
 		
 		JSONObject response = getHolidays();
+		log.info("bday :"+response.get("birthday"));
 		Calendar bday = (Calendar) response.get("birthday");
 		
-		log.info("val :"+isEventWithinRange(bday));
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??");
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??");
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+isEventWithinRange(bday));
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+isEventWithinRange(bday));
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
@@ -84,7 +84,6 @@ public class MyWebhookServlet extends HttpServlet {
   
   public JSONObject getHolidays(){
 	  
-	  log.info("in get holidays");
 	  int leaveBalance = 4;
 		
 		JSONObject responseObject = new JSONObject();
@@ -105,7 +104,6 @@ public class MyWebhookServlet extends HttpServlet {
 		
 		responseObject.put("holidays", holidays);
 		responseObject.put("leave_balance", leaveBalance);
-		log.info("response object :"+responseObject);
 		return responseObject;
 	  
   }
@@ -117,54 +115,7 @@ public class MyWebhookServlet extends HttpServlet {
 		Calendar lastday = Calendar.getInstance();
 		lastday.add(Calendar.MONTH, 3);
 		
-		log.info("res :  "+(testDate.after(today) && testDate.before(lastday)));
-		
 	    return testDate.after(today) && testDate.before(lastday);
 	}
-  
-  /*public int calculateBill(String pizza, int cnt1, String coke, int cnt2)
-  {
-	String[] pizzas = {"Austrelian", "Autumn", "cheese", "Peppy Panir"};
-	int[] cost1 = {200, 100, 300, 230};
-	
-	String[] cokes = {"Coca cola", "Mirinda"};
-	int[] cost2 = {30,50};
-
-	int price1=0,price2=0;
-	for(int i=0; i < pizzas.length; i++){
-		if(pizza.equalsIgnoreCase(pizzas[i]))
-		{
-			price1 = cost1[i];
-		}
-	}
-	
-	for(int i=0; i < cokes.length; i++){
-		if(coke.equalsIgnoreCase(cokes[i]))
-		{
-			price2 = cost2[i];
-		}
-	}
-	
-	return price1*cnt1+price2*cnt2;
-	
-  }
-  
-  public int calculatePizzaBill(String pizza, int cnt1)
-  {
-	String[] pizzas = {"Austrelian", "Autumn", "cheese", "Peppy Panir"};
-	int[] cost1 = {200, 100, 300, 230};
-	
-	
-	int price1=0;
-	for(int i=0; i < pizzas.length; i++){
-		if(pizza.equalsIgnoreCase(pizzas[i]))
-		{
-			price1 = cost1[i];
-		}
-	}
-	
-	return price1*cnt1;
-	
-  }*/
-
+ 
 }
