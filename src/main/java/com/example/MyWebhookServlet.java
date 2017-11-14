@@ -64,6 +64,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				log.info("rerouting to event : evt trg");
 				output.setFollowupEvent(followupEvent);
 				message = "You want to apply leave from "+parameter.get("startDate").toString()+" to "+parameter.get("endDate").toString();
+				log.info("mesg :"+message);
 				output.setDisplayText(message);
 				output.setSpeech(message);
 			}
