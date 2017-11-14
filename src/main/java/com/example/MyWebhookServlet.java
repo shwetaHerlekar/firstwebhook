@@ -2,6 +2,7 @@ package com.example;
 
 import java.io.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
@@ -52,8 +53,11 @@ public class MyWebhookServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
 		
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+getHolidays().toJSONString());
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+getHolidays().toJSONString());
+		JSONObject response = getHolidays();
+		Date bday = (Date) response.get("birthday");
+		
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+bday);
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+bday);
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
@@ -84,18 +88,15 @@ public JSONObject getHolidays(){
 		
 		JSONObject responseObject = new JSONObject();
 		
-		Calendar bday = Calendar.getInstance();
-		bday.set(2017, 11, 21);
+		Date bday = new Date(2017, 11, 21);
 		responseObject.put("birthday", bday.toString());
 		
 		JSONObject holidays = new JSONObject();
-		Calendar event_date= Calendar.getInstance();
-		event_date.set(2017, 12, 25);
+		Date event_date = new Date(2017, 12, 25);
 		holidays.put(event_date.toString(), "christmas");
 		
 
-		event_date= Calendar.getInstance();
-		event_date.set(2017, 12, 31);
+		event_date = new Date(2017, 12, 31);
 		holidays.put(event_date.toString(), "newyear");
 		
 		responseObject.put("holidays", holidays);
@@ -104,14 +105,10 @@ public JSONObject getHolidays(){
 	  
   }
   
-  public boolean isEventWithinRange(Calendar testDate) {
-		Calendar today = Calendar.getInstance();
-		today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
-		
-		Calendar lastday = Calendar.getInstance();
-		lastday.add(Calendar.MONTH, 3);
-		
-	    return testDate.after(today) && testDate.before(lastday);
+  public boolean isEventWithinRange(Date testDate) {
+	  Date today = new Date(2017, 11, 14);
+	  Date last = new Date(2018, 1, 31);
+	  return !(testDate.before(today) || testDate.after(last));
 	}
  
 }
