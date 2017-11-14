@@ -15,7 +15,6 @@ import org.json.simple.parser.JSONParser;
 @SuppressWarnings("serial")
 public class MyWebhookServlet extends HttpServlet {
 	
-	private static final Logger log = Logger.getLogger(MyWebhookServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -54,11 +53,10 @@ public class MyWebhookServlet extends HttpServlet {
 		JSONObject obj = new JSONObject();
 		
 		JSONObject response = getHolidays();
-		log.info("bday :"+response.get("birthday"));
 		Calendar bday = (Calendar) response.get("birthday");
 		
-		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+isEventWithinRange(bday));
-		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+isEventWithinRange(bday));
+		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+bday);
+		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+bday);
 		out.println(obj);
 	}
 	/*else if(action1.equals("calculate_pizza_bill")){
@@ -82,7 +80,8 @@ public class MyWebhookServlet extends HttpServlet {
     
   }
   
-  public JSONObject getHolidays(){
+  @SuppressWarnings({ "unchecked", "unchecked", "unchecked", "unchecked", "unchecked" })
+public JSONObject getHolidays(){
 	  
 	  int leaveBalance = 4;
 		
