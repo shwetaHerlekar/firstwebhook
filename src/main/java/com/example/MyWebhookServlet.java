@@ -56,7 +56,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				log.info("start date");
 				outParameter.put("startDate", parameter.get("startDate").toString());
 			}
-			if (!parameter.get("endDate").toString().equals("")) {
+			if (!parameter.get("endDate").getAsString().equals("")) {
 				log.info("endDate");
 				outParameter.put("endDate", parameter.get("endDate").toString());
 			}
