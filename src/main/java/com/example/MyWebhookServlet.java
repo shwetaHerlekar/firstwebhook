@@ -2,6 +2,7 @@ package com.example;
 
 import java.io.*;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import org.json.simple.parser.JSONParser;
 // [START example]
 @SuppressWarnings("serial")
 public class MyWebhookServlet extends HttpServlet {
+	
+	private static final Logger log = Logger.getLogger(MyWebhookServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -28,7 +31,7 @@ public class MyWebhookServlet extends HttpServlet {
 	try
 	{
 	resp.setContentType("application/json");
-	
+	log.info("in webhook");
 	StringBuilder buffer = new StringBuilder();
     BufferedReader reader = req.getReader();
     String line;
@@ -46,6 +49,7 @@ public class MyWebhookServlet extends HttpServlet {
 
 	if(action1.equals("QUERY_LEAVE")){
 	
+		log.info("in query leave");
 		PrintWriter out = resp.getWriter();
 		JSONObject obj = new JSONObject();
 		
@@ -53,6 +57,7 @@ public class MyWebhookServlet extends HttpServlet {
 		Calendar bday = (Calendar) response.get("birthday");
 		boolean val = isEventWithinRange(bday);
 		
+		log.info("val :"+val);
 		obj.put("displayText", "Your birthday is coming on 21st November 2017. Want to go out??"+val);
 		obj.put("speech", "Your birthday is coming on 21st November 2017. Want to go out??"+val);
 		out.println(obj);
@@ -79,6 +84,8 @@ public class MyWebhookServlet extends HttpServlet {
   }
   
   public JSONObject getHolidays(){
+	  
+	  log.info("in get holidays");
 	  int leaveBalance = 4;
 		
 		JSONObject responseObject = new JSONObject();
@@ -99,6 +106,7 @@ public class MyWebhookServlet extends HttpServlet {
 		
 		responseObject.put("holidays", holidays);
 		responseObject.put("leave_balance", leaveBalance);
+		log.info("response object :"+responseObject);
 		return responseObject;
 	  
   }
@@ -109,6 +117,8 @@ public class MyWebhookServlet extends HttpServlet {
 		
 		Calendar lastday = Calendar.getInstance();
 		lastday.add(Calendar.MONTH, 3);
+		
+		log.info("res :  "+(testDate.after(today) && testDate.before(lastday)));
 		
 	    return testDate.after(today) && testDate.before(lastday);
 	}
