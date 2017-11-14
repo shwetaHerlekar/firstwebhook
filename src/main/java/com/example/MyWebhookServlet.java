@@ -59,12 +59,14 @@ public class MyWebhookServlet extends AIWebhookServlet {
 			if (!parameter.get("endDate").equals("") && !parameter.get("startDate").equals("")) {
 				days =  getDays(parameter.get("startDate").toString(), parameter.get("endDate").toString());
 				outParameter.put("noOfDays", String.valueOf(days));
-				//fetch no of days
+				AIEvent followupEvent = new AIEvent("simple_leave_event");
+				followupEvent.setData(outParameter);
+				log.info("rerouting to event : evt trg");
+				output.setFollowupEvent(followupEvent);
+				message = "You want to apply leave from "+parameter.get("startDate").toString()+" to "+parameter.get("endDate").toString();
+				output.setDisplayText(message);
+				output.setSpeech(message);
 			}
-			AIEvent followupEvent = new AIEvent("simple_leave_event");
-			followupEvent.setData(outParameter);
-			log.info("rerouting to event : evt trg");
-			output.setFollowupEvent(followupEvent);
 		}
 		if (parameter.containsKey("noOfDays") && !parameter.get("noOfDays").equals("")) {
 			log.info("no of days");
