@@ -30,6 +30,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 					log.info("in query leave case");
 					output = queryLeave(output, parameter);
 					break;
+				/*case "simple_leave" :
+					log.info("in simple leave case");
+					output = simpleLeave(output, parameter);
+					break;*/
 			}
 		}catch(Exception e){
 			
@@ -47,9 +51,6 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		int days = 0;
 		Map<String,String> outParameter = new HashMap<>();
 		
-		String start = parameter.get("startDate").toString();
-		boolean t = (start=="");
-		log.info("t :"+t);
 		
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			if (!parameter.get("startDate").getAsString().equals("")) {
@@ -60,8 +61,8 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				log.info("endDate");
 				outParameter.put("endDate", parameter.get("endDate").toString());
 			}
-			if (!parameter.get("endDate").toString().equals("") && !parameter.get("startDate").toString().equals("")) {
-				days =  getDays(parameter.get("startDate").toString(), parameter.get("endDate").toString());
+			if (!parameter.get("endDate").getAsString().equals("") && !parameter.get("startDate").getAsString().equals("")) {
+				days =  getDays(parameter.get("startDate").getAsString(), parameter.get("endDate").getAsString());
 				outParameter.put("noOfDays", String.valueOf(days));
 				AIEvent followupEvent = new AIEvent("simple_leave_event");
 				followupEvent.setData(outParameter);
@@ -95,8 +96,12 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	private int getDays(String startDate , String endDate) {
 		
 		// TODO Auto-generated method stub
-		int days = 0;
+		Date start = new SimpleDateFormat("yyyy-mm-dd").parse(startDate);  
+		Date end = new SimpleDateFormat("yyyy-mm-dd").parse(endDate);
+		
+		int days = Math.round((end.getTime() - start.getTime()) / (double) 86400000);
 
-		return 0;
+		log.info("days :"+days);
+		return days;
 	}
 }
