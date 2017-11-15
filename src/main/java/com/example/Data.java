@@ -20,10 +20,10 @@ public class Data {
 		
 		JSONObject holidays = new JSONObject();
 		event_date="25/12/2017";  
-		holidays.put(event_date, "christmas");
+		holidays.put("christmas", event_date);
 		
 		event_date="31/12/2017";  
-		holidays.put(event_date, "new year eve");
+		holidays.put("new year", event_date);
 		
 		responseObject.put("holidays", holidays);
 		responseObject.put("leave_balance", leaveBalance);

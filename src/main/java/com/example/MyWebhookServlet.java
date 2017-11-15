@@ -2,6 +2,7 @@ package com.example;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -205,11 +206,17 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			
 			if (!parameter.get("endDate").getAsString().equals("") && !parameter.get("startDate").getAsString().equals("")) {
+				Date startDate = new SimpleDateFormat().parse(parameter.get("startDate").getAsString());
+				Date endDate = new SimpleDateFormat().parse(parameter.get("startDate").getAsString());
+				
+				if(isWeekend(startDate, endDate))
+					log.info("there is weekend in between");
+				
 				message = "You are applying leave from "+parameter.get("startDate").getAsString()+" to "+parameter.get("endDate").getAsString()+". Please Confirm.";
 				log.info(message);
 			}
 			else if (!parameter.get("startDate").getAsString().equals("") && !parameter.get("noOfDays").getAsString().equals("")){
-				message = "You are applying "+parameter.get("noOfDays").getAsString()+" from "+parameter.get("startDate").getAsString()+". Please confirm.";
+				message = "You are applying "+parameter.get("noOfDays").getAsString()+" leaves from "+parameter.get("startDate").getAsString()+". Please confirm.";
 				log.info(message);
 			}
 		}
@@ -258,5 +265,21 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		}
 		
 		return msg;
+	}
+	
+	@SuppressWarnings({ "deprecation", "unused" })
+	private boolean isWeekend(Date startDate, Date endDate)
+	{
+			Date d1 = startDate;
+		    Date d2 = endDate; 
+		    boolean isWeekend = false;
+
+		    while (d1.before(d2)) {
+		        int day = d1.getDay();
+		        isWeekend = (day == 6) || (day == 0); 
+		        if (isWeekend) { return true; } // return immediately if weekend found
+		        d1.setDate(d1.getDate() + 1);
+		    }
+		    return false;
 	}
 }
