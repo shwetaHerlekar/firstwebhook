@@ -117,8 +117,9 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				outParameters.put("event", noOfDays);
 				
 				String bday = holidayData.get("birthday").toString();
+				Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday); 
 				
-				JsonElement startDate = new JsonPrimitive(bday.toString());
+				JsonElement startDate = new JsonPrimitive(birthday.toString());
 				outParameters.put("startDate", startDate);
 				
 				AIOutputContext contextOut = new AIOutputContext();
@@ -159,9 +160,8 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	@SuppressWarnings("unchecked")
 	private Fulfillment applyOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		log.info("inside apply one leave");
-		Date d = new SimpleDateFormat("dd/MM/yyyy").parse(parameter.get("startDate").getAsString());
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
-		String message = "Please confirm your leave on "+sdf.format(d)+".";
+		
+		String message = "Please confirm your leave on "+parameter.get("startDate").getAsString()+".";
 		JsonElement endDate = new JsonPrimitive(parameter.get("startDate").toString());
 		parameter.put("endDate", endDate);
 		int days = 1;
