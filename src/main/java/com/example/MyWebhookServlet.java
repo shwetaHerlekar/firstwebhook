@@ -116,10 +116,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				JsonElement noOfDays = new JsonPrimitive(event);
 				outParameters.put("event", noOfDays);
 				
-				String bday = holidayData.get("birthday").toString();
+				/*String bday = holidayData.get("birthday").toString();
 				
 				JsonElement startDate = new JsonPrimitive(bday.toString());
-				outParameters.put("startDate", startDate);
+				outParameters.put("startDate", startDate);*/
 				
 				AIOutputContext contextOut = new AIOutputContext();
 				contextOut.setLifespan(2);
