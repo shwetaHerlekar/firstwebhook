@@ -2,10 +2,14 @@ package com.example;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.json.simple.JSONObject;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
@@ -35,6 +39,12 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				case "simple_leave" :
 					log.info("in simple leave case");
 					output = simpleLeave(output, parameter);
+					break;
+				case "event-yes" :
+					log.info("in event yes case");
+					break;
+				case "event-no":
+					log.info("in event no case");
 					break;
 			}
 		}catch(Exception e){
@@ -98,6 +108,21 @@ public class MyWebhookServlet extends AIWebhookServlet {
 			else if (parameter.get("endDate").getAsString().equals("") && parameter.get("startDate").getAsString().equals(""))
 			{
 				log.info("no date is given");
+				message = Suggest();
+				List<AIOutputContext> contextOutList = new LinkedList<AIOutputContext>();
+				
+				AIOutputContext contextOut1 = new AIOutputContext();
+				contextOut1.setLifespan(2);
+				contextOut1.setName("QueryLeave-followup");
+				contextOutList.add(contextOut1);
+				
+				AIOutputContext contextOut2 = new AIOutputContext();
+				contextOut2.setLifespan(2);
+				contextOut2.setName("QueryLeave-followup");
+				contextOutList.add(contextOut2);
+				output.setContextOut(contextOutList);
+				output.setDisplayText(message);
+				output.setSpeech(message);
 			}
 			
 		}
@@ -145,5 +170,29 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		output.setDisplayText(message);
 		output.setSpeech(message);
 		return output;
+	}
+	
+	private boolean isEventWithinRange(Date testDate) throws ParseException {  
+		String event_date="11/15/2017";
+		Date today = new SimpleDateFormat("dd/MM/yyyy").parse(event_date);  
+		event_date="31/01/2018";
+		Date last = new SimpleDateFormat("dd/MM/yyyy").parse(event_date);  
+		return testDate.before(today) && last.after(testDate);
+	}
+	
+	private String Suggest() throws ParseException
+	{
+		JSONObject holidayData = Data.getHolidays();
+		String bday = holidayData.get("birthday").toString();
+		Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday);  
+		String msg = "";
+		
+		if(isEventWithinRange(birthday))
+		{
+			msg = "Your birthday is coming on "+birthday+". Want to go out??";
+			log.info(msg);
+		}
+		
+		return msg;
 	}
 }
