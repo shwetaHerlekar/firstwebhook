@@ -215,9 +215,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	
 	private boolean isEventWithinRange(Date testDate) throws ParseException {  
 		String event_date="2017-11-15";
-		Date today = new SimpleDateFormat("yyyy-mm-dd").parse(event_date);  
-		event_date="2018-02-15";
-		Date last = new SimpleDateFormat("yyyy-mm-dd").parse(event_date);  
+		Date today = new SimpleDateFormat("yyyy-MM-dd").parse(event_date);  
+		event_date="2018-12-15";
+		Date last = new SimpleDateFormat("yyyy-MM-dd").parse(event_date);  
+		log.info(String.valueOf(testDate.before(today) && last.after(testDate)));
 		return testDate.before(today) && last.after(testDate);
 	}
 	
@@ -227,7 +228,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		log.info("inside suggest");
 		JSONObject holidayData = Data.getHolidays();
 		String bday = holidayData.get("birthday").toString();
-		Date birthday = new SimpleDateFormat("yyyy-mm-dd").parse(bday);
+		Date birthday = new SimpleDateFormat("yyyy-MM-dd").parse(bday);
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
 		String msg = "";
 		
