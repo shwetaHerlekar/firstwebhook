@@ -211,7 +211,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		log.info("inside suggest");
 		JSONObject holidayData = Data.getHolidays();
 		String bday = holidayData.get("birthday").toString();
-		Date birthday = new Date(bday);
+		Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday);
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
 		String msg = "";
 		
