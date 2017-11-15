@@ -40,11 +40,9 @@ public class MyWebhookServlet extends AIWebhookServlet {
 					log.info("in simple leave case");
 					output = simpleLeave(output, parameter);
 					break;
-				case "event-yes" :
-					log.info("in event yes case");
-					break;
-				case "event-no":
-					log.info("in event no case");
+				case "QueryLeave.QueryLeave-yes" :
+					log.info("in QueryLeave.QueryLeave-yes case");
+					output = eventOneLeave(output, parameter);
 					break;
 			}
 		}catch(Exception e){
@@ -109,18 +107,16 @@ public class MyWebhookServlet extends AIWebhookServlet {
 			{
 				log.info("no date is given");
 				message = Suggest();
-				List<AIOutputContext> contextOutList = new LinkedList<AIOutputContext>();
 				
-				AIOutputContext contextOut1 = new AIOutputContext();
-				contextOut1.setLifespan(2);
-				contextOut1.setName("QueryLeave-followup");
-				contextOutList.add(contextOut1);
+				String event = "birthday";
+				JsonElement noOfDays = new JsonPrimitive(event);
+				outParameters.put("event", noOfDays);
 				
-				AIOutputContext contextOut2 = new AIOutputContext();
-				contextOut2.setLifespan(2);
-				contextOut2.setName("QueryLeave-followup");
-				contextOutList.add(contextOut2);
-				output.setContextOut(contextOutList);
+				AIOutputContext contextOut = new AIOutputContext();
+				contextOut.setLifespan(2);
+				contextOut.setName("QueryLeave-followup");
+				contextOut.setParameters(outParameters);
+				output.setContextOut(contextOut);
 				output.setDisplayText(message);
 				output.setSpeech(message);
 			}
@@ -134,6 +130,15 @@ public class MyWebhookServlet extends AIWebhookServlet {
 			log.info("event");
 		}
 		
+		return output;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Fulfillment eventOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
+		String message = "Do you want to take one day leave on "+parameter.get("event").getAsString();
+		log.info(message);
+		output.setDisplayText(message);
+		output.setSpeech(message);
 		return output;
 	}
 	
