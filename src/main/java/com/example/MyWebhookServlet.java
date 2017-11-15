@@ -161,6 +161,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	@SuppressWarnings("unchecked")
 	private Fulfillment applyOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		log.info("inside apply one leave");
+		log.info(parameter.toString());
 		String message = "Please confirm your leave on "+parameter.get("startDate").getAsString()+".";
 		JsonElement endDate = new JsonPrimitive(parameter.get("startDate").toString());
 		parameter.put("endDate", endDate);
