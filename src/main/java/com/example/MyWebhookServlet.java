@@ -221,6 +221,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	
 	@SuppressWarnings("unchecked")
 	private Fulfillment noEventLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
+		log.info("contexts :"+output.getContextOut());
 		String message = "From when you want to apply leave?";
 		AIOutputContext contextOut = new AIOutputContext();
 		contextOut.setLifespan(2);
