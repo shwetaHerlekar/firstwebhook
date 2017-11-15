@@ -46,7 +46,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 					break;
 				case "QueryLeave.QueryLeave-yes.QueryLeave-yes-yes" :
 					log.info("in QueryLeave.QueryLeave-yes.QueryLeave-yes-yes");
-					//output = applyOneLeave(output, parameter);
+					output = applyOneLeave(output, parameter);
 					break;
 			}
 		}catch(Exception e){
@@ -145,13 +145,16 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	
 	@SuppressWarnings("unchecked")
 	private Fulfillment eventOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
-		String message = "Do you want to take one day leave on "+parameter.get("event").getAsString();
+		String message = "Do you want to take off on "+parameter.get("event").getAsString();
 		log.info(message);
+		
 		JsonElement endDate = new JsonPrimitive(parameter.get("startDate").toString());
 		parameter.put("endDate", endDate);
 		int days = 1;
 		JsonElement noOfDays = new JsonPrimitive(days);
 		parameter.put("noOfDays", noOfDays);
+		
+		
 		AIOutputContext contextOut = new AIOutputContext();
 		contextOut.setLifespan(2);
 		contextOut.setName("QueryLeave-yes-followup");
@@ -159,6 +162,21 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		output.setContextOut(contextOut);		
 		output.setDisplayText(message);
 		output.setSpeech(message);
+		return output;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Fulfillment applyOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
+		log.info("inside apply one leave");
+		Map<String,String> outParameter = new HashMap<>();
+		outParameter.put("startDate", parameter.get("startDate").getAsString());
+		outParameter.put("endDate", parameter.get("startDate").getAsString());
+		outParameter.put("event", parameter.get("startDate").getAsString());
+		int days = 1;
+		outParameter.put("noOfDays", String.valueOf(days));
+		AIEvent followupEvent = new AIEvent("simple_level_event");
+		followupEvent.setData(outParameter);
+		output.setFollowupEvent(followupEvent);
 		return output;
 	}
 	
