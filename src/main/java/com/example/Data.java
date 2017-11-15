@@ -15,14 +15,14 @@ public class Data {
 		
 		JSONObject responseObject = new JSONObject();
 		
-		String event_date="21/11/2017";  
+		String event_date="2017-11-21";  
 		responseObject.put("birthday", event_date);
 		
 		JSONObject holidays = new JSONObject();
-		event_date="25/12/2017";  
+		event_date="2017-12-25";  
 		holidays.put(event_date, "christmas");
 		
-		event_date="31/12/2017";  
+		event_date="2017-12-31";  
 		holidays.put(event_date, "new year eve");
 		
 		responseObject.put("holidays", holidays);
