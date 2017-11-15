@@ -44,6 +44,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 					log.info("in QueryLeave.QueryLeave-yes case");
 					output = eventOneLeave(output, parameter);
 					break;
+				case "QueryLeave.QueryLeave-yes.QueryLeave-yes-yes" :
+					log.info("in QueryLeave.QueryLeave-yes case");
+					//output = applyOneLeave(output, parameter);
+					break;
 			}
 		}catch(Exception e){
 			
@@ -112,6 +116,12 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				JsonElement noOfDays = new JsonPrimitive(event);
 				outParameters.put("event", noOfDays);
 				
+				String bday = holidayData.get("birthday").toString();
+				Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday); 
+				
+				JsonElement startDate = new JsonPrimitive(birthday.toString());
+				outParameters.put("startDate", startDate);
+				
 				AIOutputContext contextOut = new AIOutputContext();
 				contextOut.setLifespan(2);
 				contextOut.setName("QueryLeave-followup");
@@ -137,6 +147,16 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	private Fulfillment eventOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		String message = "Do you want to take one day leave on "+parameter.get("event").getAsString();
 		log.info(message);
+		JsonElement endDate = new JsonPrimitive(parameter.get("startDate").toString());
+		parameter.put("endDate", endDate);
+		int days = 1;
+		JsonElement noOfDays = new JsonPrimitive(days);
+		parameter.put("noOfDays", noOfDays);
+		AIOutputContext contextOut = new AIOutputContext();
+		contextOut.setLifespan(2);
+		contextOut.setName("QueryLeave-yes-followup");
+		contextOut.setParameters(parameter);
+		output.setContextOut(contextOut);		
 		output.setDisplayText(message);
 		output.setSpeech(message);
 		return output;
