@@ -28,6 +28,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	protected void doWebhook(AIWebhookRequest input, Fulfillment output) {
 		log.info("webhook call");
 		String action = input.getResult().getAction();
+		log.info("action :"+action);
 		HashMap<String, JsonElement> parameter = input.getResult().getParameters();
 		
 		try{
@@ -47,6 +48,10 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				case "QueryLeave.QueryLeave-yes.QueryLeave-yes-yes" :
 					log.info("in QueryLeave.QueryLeave-yes.QueryLeave-yes-yes");
 					output = applyOneLeave(output, parameter);
+					break;
+				case "QueryLeave.QueryLeave-no" :
+					log.info("QueryLeave.QueryLeave-no");
+					output = noEventLeave(output, parameter);
 					break;
 			}
 		}catch(Exception e){
@@ -209,6 +214,19 @@ public class MyWebhookServlet extends AIWebhookServlet {
 			}
 		}
 		
+		output.setDisplayText(message);
+		output.setSpeech(message);
+		return output;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Fulfillment noEventLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
+		String message = "From when you want to apply leave?";
+		AIOutputContext contextOut = new AIOutputContext();
+		contextOut.setLifespan(2);
+		contextOut.setName("SimpleLeave");
+		contextOut.setParameters(parameter);
+		output.setContextOut(contextOut);	
 		output.setDisplayText(message);
 		output.setSpeech(message);
 		return output;
