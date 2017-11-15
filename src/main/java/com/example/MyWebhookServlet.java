@@ -208,6 +208,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	@SuppressWarnings("deprecation")
 	private String Suggest() throws ParseException
 	{
+		log.info("inside suggest");
 		JSONObject holidayData = Data.getHolidays();
 		String bday = holidayData.get("birthday").toString();
 		Date birthday = new Date(bday);
