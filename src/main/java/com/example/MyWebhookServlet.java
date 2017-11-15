@@ -209,9 +209,6 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				Date startDate = new SimpleDateFormat().parse(parameter.get("startDate").getAsString());
 				Date endDate = new SimpleDateFormat().parse(parameter.get("startDate").getAsString());
 				
-				if(isWeekend(startDate, endDate))
-					log.info("there is weekend in between");
-				
 				message = "You are applying leave from "+parameter.get("startDate").getAsString()+" to "+parameter.get("endDate").getAsString()+". Please Confirm.";
 				log.info(message);
 			}
