@@ -206,8 +206,6 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		if (parameter.containsKey("startDate") && parameter.containsKey("endDate")) {
 			
 			if (!parameter.get("endDate").getAsString().equals("") && !parameter.get("startDate").getAsString().equals("")) {
-				Date startDate = new SimpleDateFormat().parse(parameter.get("startDate").getAsString());
-				Date endDate = new SimpleDateFormat().parse(parameter.get("startDate").getAsString());
 				
 				message = "You are applying leave from "+parameter.get("startDate").getAsString()+" to "+parameter.get("endDate").getAsString()+". Please Confirm.";
 				log.info(message);
