@@ -205,16 +205,18 @@ public class MyWebhookServlet extends AIWebhookServlet {
 		return testDate.before(today) && last.after(testDate);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private String Suggest() throws ParseException
 	{
 		JSONObject holidayData = Data.getHolidays();
 		String bday = holidayData.get("birthday").toString();
-		Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday);  
+		Date birthday = new Date(bday);
+		SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
 		String msg = "";
 		
 		if(isEventWithinRange(birthday))
 		{
-			msg = "Your birthday is coming on "+birthday+". Want to go out??";
+			msg = "Your birthday is coming on "+sdf.format(birthday)+". Want to go out??";
 			log.info(msg);
 		}
 		
