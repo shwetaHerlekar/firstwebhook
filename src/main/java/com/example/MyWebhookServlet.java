@@ -147,7 +147,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	private Fulfillment eventOneLeave(Fulfillment output, HashMap<String, JsonElement> parameter) throws ParseException {
 		String message = "Do you want to take off on "+parameter.get("event").getAsString();
 		log.info(message);
-		
+		log.info("parameter here earlier :"+parameter.toString());
 		AIOutputContext contextOut = new AIOutputContext();
 		contextOut.setLifespan(2);
 		contextOut.setName("QueryLeave-yes-followup");
