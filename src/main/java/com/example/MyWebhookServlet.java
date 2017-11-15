@@ -112,12 +112,12 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				log.info("no date is given");
 				message = Suggest();
 				
-				/*String event = "birthday";
+				String event = "birthday";
 				JsonElement noOfDays = new JsonPrimitive(event);
 				outParameters.put("event", noOfDays);
 				
-				String bday = holidayData.get("birthday").toString();
-				Date birthday = new SimpleDateFormat("yyyy-mm-dd").parse(bday); 
+				/*String bday = holidayData.get("birthday").toString();
+				Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday); 
 				
 				JsonElement startDate = new JsonPrimitive(birthday.toString());
 				outParameters.put("startDate", startDate);*/
@@ -209,9 +209,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 	{
 		JSONObject holidayData = Data.getHolidays();
 		String bday = holidayData.get("birthday").toString();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date birthday = sdf.parse(sdf.format(bday));
-		
+		Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(bday);  
 		String msg = "";
 		
 		if(isEventWithinRange(birthday))
