@@ -45,7 +45,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 					output = eventOneLeave(output, parameter);
 					break;
 				case "QueryLeave.QueryLeave-yes.QueryLeave-yes-yes" :
-					log.info("in QueryLeave.QueryLeave-yes case");
+					log.info("in QueryLeave.QueryLeave-yes.QueryLeave-yes-yes");
 					//output = applyOneLeave(output, parameter);
 					break;
 			}
