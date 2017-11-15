@@ -112,7 +112,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				log.info("no date is given");
 				message = Suggest();
 				
-				String event = "birthday";
+				/*String event = "birthday";
 				JsonElement noOfDays = new JsonPrimitive(event);
 				outParameters.put("event", noOfDays);
 				
@@ -120,7 +120,7 @@ public class MyWebhookServlet extends AIWebhookServlet {
 				Date birthday = new SimpleDateFormat("yyyy-mm-dd").parse(bday); 
 				
 				JsonElement startDate = new JsonPrimitive(birthday.toString());
-				outParameters.put("startDate", startDate);
+				outParameters.put("startDate", startDate);*/
 				
 				AIOutputContext contextOut = new AIOutputContext();
 				contextOut.setLifespan(2);
